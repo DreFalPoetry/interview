@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function deepClone(obj){
+      if(!(obj instanceof Array) && !(obj instanceof Object)){
+        return
+      }
+      let newObj = obj instanceof Array ? [] : {}
+      for(let key in obj){
+        if(obj.hasOwnProperty(key)){
+          let curVal = obj[key]
+          if(curVal instanceof Array || curVal instanceof Object){
+            newObj[key] = deepClone(curVal)
+          }else{
+            newObj[key] = curVal
+          }
+        }
+      }
+      return newObj
+    }
+    let testObj = {
+      a: 1,
+      b: true,
+      c: 'aaa',
+      d: function(){},
+      e: ['12',23],
+      f: {
+        a: 1,
+        b: {aa:'sfsf'}
+      },
+      g: undefined
+    }
+    let clonedObj = deepClone(testObj)
+    console.log('testObj', testObj)
+    console.log('clonedObj', clonedObj)
+  </script>
+</body>
+</html>
